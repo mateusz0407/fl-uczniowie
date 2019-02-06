@@ -44,14 +44,14 @@ python app.py
 ## Realizacja – wskazówki
 
 1. Zdefiniuj modele Klasa i Uczen w pliku modele.py.
-2. Zdefiniuj formularze dla dodawania/edycji klas i uczniów.
-3. Wgraj do katalogu templates szablon bazowy w Bootstrapie.
-4. W katalogu static umieść zasoby css, js itp.
-5. Przygotuj szablon index.html dziedziczący z szablonu bazowego.
-6. Przygotuj widok dodawania klas.
-7. Przygotuj widok edytowania klas.
-8. Przygotuj wid klas.
-9. Przygotuj widok dodawania uczniów.ok wyświetlający listę
-10. Przygotuj widok edytowania uczniów.
-11. Przygotuj widok wyświetlający listę uczniów.
-
+2. Na podstawie modeli utwórz bazę danych.
+3. Zdefiniuj formularze dla dodawania/edycji klas i uczniów.
+4. Wgraj do katalogu templates szablon bazowy w Bootstrapie.
+5. W katalogu static umieść zasoby css, js itp.
+6. Wszystkie szablony powinny dziedziczyć kod z szablonu bazowego.
+7. Przygotuj widok dodawania klas.
+8. Przygotuj widok listy klas.
+9. Przygotuj widok edytowania klas.
+10. Przygotuj widok dodawania uczniów.
+11. Przygotuj widok listy uczniów.
+12. Przygotuj widok edytowania uczniów.

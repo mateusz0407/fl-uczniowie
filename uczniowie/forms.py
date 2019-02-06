@@ -9,5 +9,9 @@ from wtforms.validators import Required
 blad1 = 'To pole jest wymagane'
 
 
+class KlasaForm(FlaskForm):
+    pass
+
+
 class UczenForm(FlaskForm):
     pass
