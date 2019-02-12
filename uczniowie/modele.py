@@ -5,7 +5,7 @@
 
 from peewee import *
 
-baza_plik = 'quiz.db'
+baza_plik = 'baza.db'
 baza = SqliteDatabase(baza_plik)  # instancja bazy
 
 ### MODELE #
@@ -15,11 +15,16 @@ class BazaModel(Model):
 
 
 class Klasa(BazaModel):
-    pass
+    klasa = CharField(null=False)
+    rok_naboru = IntegerField(default=0)
+    rok_matury = IntegerField(default=0)
 
 
 class Uczen(BazaModel):
-    pass
+    imie = CharField(null=False)
+    nazwisko = CharField(null=False)
+    plec = IntegerField()
+    klasa = ForeignKeyField(Klasa, related_name='uczniowie')
 
 
 def main(args):
