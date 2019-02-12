@@ -23,7 +23,7 @@ class Klasa(BazaModel):
 class Uczen(BazaModel):
     imie = CharField(null=False)
     nazwisko = CharField(null=False)
-    plec = IntegerField()
+    plec = BooleanField()
     klasa = ForeignKeyField(Klasa, related_name='uczniowie')
 
 

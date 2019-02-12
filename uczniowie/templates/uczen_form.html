@@ -1,0 +1,15 @@
+    <form method="POST">
+      {{ form.csrf_token }}
+
+      {{ form.imie.label }}<br>
+      {{ form.imie }}<br>
+      <br>
+      {{ form.nazwisko.label }}<br>
+      {{ form.nazwisko }}<br>
+      <br>
+      {{ form.plec.label }}<br>
+      {{ form.plec }}<br>
+
+
+    <input type="submit" value="Prześlij">
+    </form>

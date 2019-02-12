@@ -13,8 +13,10 @@ class KlasaForm(FlaskForm):
     id = HiddenField()
     klasa = StringField("Klasa: ",
                         validators=[Required(message=blad1)])
-    rok_naboru = StringField("Rok naboru: ")
-    rok_matury = StringField("Rok matury: ", )
+    rok_naboru = StringField("Rok naboru: ",
+                             validators=[Required(message=blad1)])
+    rok_matury = StringField("Rok matury: ",
+                             validators=[Required(message=blad1)])
 
 
 class UczenForm(FlaskForm):
