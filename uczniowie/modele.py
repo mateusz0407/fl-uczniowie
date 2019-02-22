@@ -4,6 +4,7 @@
 #  modele.py
 
 from peewee import *
+from wtforms import SelectField
 
 baza_plik = 'baza.db'
 baza = SqliteDatabase(baza_plik)  # instancja bazy
@@ -24,7 +25,7 @@ class Uczen(BazaModel):
     imie = CharField(null=False)
     nazwisko = CharField(null=False)
     plec = BooleanField()
-    klasa = ForeignKeyField(Klasa, related_name='uczniowie')
+    klasa = SelectField('Klasa: ', coerce=int)
 
 
 def main(args):
