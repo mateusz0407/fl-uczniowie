@@ -7,6 +7,7 @@
     {% for kl in klasy %}
         <li>{{ kl.klasa }}
             <a href="{{ url_for('edytuj_kl', kid=kl.id) }}" class="btn btn-secondary btn-sm"> Edytuj</a>
+            <a href="{{ url_for('usun_kl', kid=kl.id) }}" class="btn btn-danger btn-sm"> Usuń</a>
         </li>
     {% endfor %}
     </ol>

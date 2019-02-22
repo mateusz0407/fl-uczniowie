@@ -48,10 +48,11 @@ def dodaj_kl():
 @app.route("/dodaj_ucz", methods=['GET', 'POST'])
 def dodaj_ucz():
     form = UczenForm()
+    form.klasa.choices = [(u.id, u.klasa) for u in Klasa.select()]
     if form.validate_on_submit():
-        ucz = Uczen(imie=form.imie.data, nazwisko=form.nazwisko.data,
-                    plec=form.plec.data, klasa=form.klasa.data)
-        ucz.save()
+        u = Uczen(imie=form.imie.data, nazwisko=form.nazwisko.data,
+                  plec=form.plec.data, klasa=form.klasa.data)
+        u.save()
 
         flash("Dodano ucznia!")
         return redirect(url_for("index"))
@@ -72,11 +73,11 @@ def flash_errors(form):
                 getattr(form, field).label.text))
 
 
-def get_or_404(kid):
+def get_or_404(obiekt, id):
     try:
-        k = Klasa.get_by_id(kid)
-        return k
-    except Klasa.DoesNotExist:
+        o = obiekt.get_by_id(id)
+        return o
+    except obiekt.DoesNotExist:
         abort(404)
 
 
@@ -87,15 +88,16 @@ def page_not_found(e):
 
 @app.route("/edytuj_ucz/<int:kid>", methods=['GET', 'POST'])
 def edytuj_ucz(kid):
-    k = get_or_404(kid)
-    form = UczenForm(obj=k)
-
+    u = get_or_404(Uczen, kid)
+    form = UczenForm(obj=u)
+    form.klasa.choices = [(kl.id, kl.klasa) for kl in Klasa.select()]
+    print(form.data)
     if form.validate_on_submit():
-        k.imie = form.imie.data
-        k.nazwisko = form.nazwisko.data
-        k.plec = form.plec.data
-        k.klasa = form.klasa.data
-        k.save()
+        u.imie = form.imie.data
+        u.nazwisko = form.nazwisko.data
+        u.plec = form.plec.data
+        u.klasa = form.klasa.data
+        u.save()
         flash("Zaktualizowano ucznia: {}".format(form.imie.data))
         return redirect(url_for("lista_ucz"))
     elif request.method == "POST":
@@ -106,7 +108,7 @@ def edytuj_ucz(kid):
 
 @app.route("/edytuj_kl/<int:kid>", methods=['GET', 'POST'])
 def edytuj_kl(kid):
-    k = get_or_404(kid)
+    k = get_or_404(Klasa, kid)
     form = KlasaForm(obj=k)
 
     if form.validate_on_submit():
@@ -120,3 +122,25 @@ def edytuj_kl(kid):
         flash_errors(form)
 
     return render_template("edytuj_kl.html", form=form)
+
+
+@app.route("/usun_kl/<int:kid>", methods=['GET', 'POST'])
+def usun_kl(kid):
+    k = get_or_404(Klasa, kid)
+    if request.method == "POST":
+        flash("Usunięto klasę: {}".format(k.klasa))
+        k.delete_instance()
+        return redirect(url_for("lista_kl"))
+
+    return render_template("usun_kl.html", klasa=k)
+
+
+@app.route("/usun_ucz/<int:kid>", methods=['GET', 'POST'])
+def usun_ucz(kid):
+    u = get_or_404(Uczen, kid)
+    if request.method == "POST":
+        flash("Usunięto ucznia: {}".format(u.imie))
+        u.delete_instance()
+        return redirect(url_for("lista_ucz"))
+
+    return render_template("usun_ucz.html", uczen=u)

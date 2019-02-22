@@ -24,4 +24,4 @@ class UczenForm(FlaskForm):
     imie = StringField("Imie: ", validators=[Required(message=blad1)])
     nazwisko = StringField("Nazwisko: ", validators=[Required(message=blad1)])
     plec = BooleanField("Czy jesteś kobietą?: ")
-    klasa = StringField("Klasa: ")
+    klasa = SelectField("Klasa: ", coerce=int)
