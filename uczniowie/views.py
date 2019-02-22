@@ -18,7 +18,7 @@ def index():
 @app.route("/lista_kl")
 def lista_kl():
     klasy = Klasa().select()
-    return render_template('lista_kl.html', kalsy=klasy)
+    return render_template('lista_kl.html', klasy=klasy)
 
 
 @app.route("/lista_ucz")
@@ -72,7 +72,7 @@ def flash_errors(form):
                 getattr(form, field).label.text))
 
 
-def get_or_404(pid):
+def get_or_404(kid):
     try:
         k = Klasa.get_by_id(kid)
         return k
@@ -83,3 +83,40 @@ def get_or_404(pid):
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+
+@app.route("/edytuj_ucz/<int:kid>", methods=['GET', 'POST'])
+def edytuj_ucz(kid):
+    k = get_or_404(kid)
+    form = UczenForm(obj=k)
+
+    if form.validate_on_submit():
+        k.imie = form.imie.data
+        k.nazwisko = form.nazwisko.data
+        k.plec = form.plec.data
+        k.klasa = form.klasa.data
+        k.save()
+        flash("Zaktualizowano ucznia: {}".format(form.imie.data))
+        return redirect(url_for("lista_ucz"))
+    elif request.method == "POST":
+        flash_errors(form)
+
+    return render_template("edytuj_ucz.html", form=form)
+
+
+@app.route("/edytuj_kl/<int:kid>", methods=['GET', 'POST'])
+def edytuj_kl(kid):
+    k = get_or_404(kid)
+    form = KlasaForm(obj=k)
+
+    if form.validate_on_submit():
+        k.klasa = form.klasa.data
+        k.rok_naboru = form.rok_naboru.data
+        k.rok_matury = form.rok_matury.data
+        k.save()
+        flash("Zaktualizowano klasę: {}".format(form.klasa.data))
+        return redirect(url_for("lista_kl"))
+    elif request.method == "POST":
+        flash_errors(form)
+
+    return render_template("edytuj_kl.html", form=form)

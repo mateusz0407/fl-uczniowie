@@ -51,7 +51,7 @@ python app.py
 # 6. Wszystkie szablony powinny dziedziczyć kod z szablonu bazowego.
 # 7. Przygotuj widok dodawania klas.
 # 8. Przygotuj widok listy klas.
-9. Przygotuj widok edytowania klas.
+# 9. Przygotuj widok edytowania klas.
 10. Przygotuj widok dodawania uczniów.
 # 11. Przygotuj widok listy uczniów.
-12. Przygotuj widok edytowania uczniów.
+# 12. Przygotuj widok edytowania uczniów.
